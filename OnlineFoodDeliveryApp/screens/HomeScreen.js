@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome6, SimpleLineIcons, MaterialCommunityIcons } from '@expo/vector-icons';  // Importé MaterialCommunityIcons para el ícono de 24 horas
 
 export default function HomeScreen() {
   return (
@@ -12,7 +12,7 @@ export default function HomeScreen() {
           style={styles.searchInput}
           placeholder="What would you like to eat?"
         />
-        <Ionicons name="heart" size={24} color="#fff" style={styles.icon} />
+        <FontAwesome6 name="heart" size={24} color="#fff" style={styles.icon} />
       </View>
 
       {/* Wallet and Coins */}
@@ -30,19 +30,19 @@ export default function HomeScreen() {
       {/* Action Buttons */}
       <View style={styles.actionButtons}>
         <TouchableOpacity style={styles.actionButton}>
-          <Ionicons name="location" size={24} color="#FF7043" />
+          <FontAwesome6 name="map-location-dot" size={24} color="#ec4f65" />  {/* Ícono de mapa para Near Me */}
           <Text style={styles.actionButtonText}>Near Me</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton}>
-          <Ionicons name="star" size={24} color="#FF7043" />
+          <SimpleLineIcons name="badge" size={24} color="#ec4f65" />  {/* Ícono de badge para Popular */}
           <Text style={styles.actionButtonText}>Popular</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton}>
-          <Ionicons name="pricetag" size={24} color="#FF7043" />
+          <FontAwesome6 name="pricetag" size={24} color="#ec4f65" />  {/* Ícono de precio para Discount */}
           <Text style={styles.actionButtonText}>Discount</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton}>
-          <Ionicons name="time" size={24} color="#FF7043" />
+          <MaterialCommunityIcons name="hours-24" size={24} color="#ec4f65" />  {/* Ícono de 24 hours */}
           <Text style={styles.actionButtonText}>24 Hours</Text>
         </TouchableOpacity>
       </View>
@@ -69,7 +69,7 @@ export default function HomeScreen() {
 
       {/* Botón flotante */}
       <TouchableOpacity style={styles.floatingButton}>
-        <Ionicons name="cart" size={30} color="#fff" />
+        <FontAwesome6 name="cart" size={30} color="#fff" />
         <Text style={styles.floatingButtonText}>Go to Cart</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 70,
     height: 70,
-    backgroundColor: '#FFEB3B',
     borderRadius: 35,
     padding: 10,
   },
