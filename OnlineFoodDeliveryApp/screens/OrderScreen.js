@@ -1,157 +1,147 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import OrderButton from '../components/OrderButton';  // Asegúrate de que la ruta es correcta
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function OrderScreen() {
+  const [quantity, setQuantity] = useState(1); // Control del número de ítems
   const [deliveryNote, setDeliveryNote] = useState('');
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>Bottegea's Fried Rice</Text>
-      <Text style={styles.subheader}>Orange leaves, chicken, tempeh, sambal, singkong, egg, crackers...</Text>
-      <Text style={styles.price}>Rp129.000 <Text style={styles.oldPrice}>Rp170.000</Text></Text>
+  const increment = () => setQuantity(quantity + 1);
+  const decrement = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
 
+  return (
+    <View style={styles.container}>
+      {/* Imagen del platillo */}
+      <Image style={styles.foodImage} source={{ uri: 'https://example.com/food-image.jpg' }} />
+      
+      {/* Nombre y precio */}
+      <Text style={styles.foodName}>Nama menu</Text>
+      <Text style={styles.foodPrice}>Rp34.000 <Text style={styles.oldPrice}>Rp34.000</Text></Text>
+      
+      {/* Extra discount */}
       <Text style={styles.discount}>Extra discount</Text>
 
-      {/* Delivery Notes */}
+      {/* Controles de cantidad */}
+      <View style={styles.quantityContainer}>
+        <TouchableOpacity onPress={decrement} style={styles.quantityButton}>
+          <Ionicons name="remove" size={20} color="#FF7043" />
+        </TouchableOpacity>
+        <Text style={styles.quantityText}>{quantity}</Text>
+        <TouchableOpacity onPress={increment} style={styles.quantityButton}>
+          <Ionicons name="add" size={20} color="#FF7043" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Nota de entrega */}
       <TextInput
-        style={styles.textInput}
+        style={styles.noteInput}
         placeholder="Delivery notes"
         value={deliveryNote}
         onChangeText={setDeliveryNote}
       />
 
-      {/* Order Button */}
-      <OrderButton />
-
-      {/* Popular Dishes */}
-      <Text style={styles.popularDishesHeader}>Popular dishes from this resto</Text>
-      <View style={styles.popularDishItem}>
-        <Text style={styles.dishText}>Calamari</Text>
-        <Text style={styles.dishPrice}>Rp125.500</Text>
-        <TouchableOpacity style={styles.addButton}>
-          <Text style={styles.addText}>Add</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.popularDishItem}>
-        <Text style={styles.dishText}>Chicken Parmigiana</Text>
-        <Text style={styles.dishPrice}>Rp198.000</Text>
-        <TouchableOpacity style={styles.addButton}>
-          <Text style={styles.addText}>Add</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Payment Summary */}
-      <View style={styles.paymentSummary}>
-        <Text style={styles.summaryText}>3 Discounts are applied</Text>
-        <Text style={styles.summaryText}>Price: Rp129.000</Text>
-        <Text style={styles.summaryText}>Delivery fee: Free</Text>
-        <Text style={styles.summaryText}>Total payment: Rp129.000</Text>
-      </View>
-
-      {/* Wallet Section */}
-      <Text style={styles.wallet}>My wallet: - Rp129.000</Text>
-
-      <TouchableOpacity style={styles.placeOrderButton}>
-        <Text style={styles.placeOrderText}>Place order</Text>
+      {/* Botón de agregar al carrito */}
+      <TouchableOpacity style={styles.addButton}>
+        <Ionicons name="cart" size={24} color="#fff" />
+        <Text style={styles.addButtonText}>Add to Cart</Text>
       </TouchableOpacity>
-    </ScrollView>
+
+      {/* Botones de navegación */}
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.footerButton}>
+          <Ionicons name="home" size={24} color="#FF7043" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton}>
+          <Ionicons name="cart" size={24} color="#FF7043" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton}>
+          <Ionicons name="chatbubble" size={24} color="#FF7043" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.footerButton}>
+          <Ionicons name="person" size={24} color="#FF7043" />
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    backgroundColor: '#FFF',
-    padding: 20,
+    flex: 1,
+    padding: 15,
+    backgroundColor: '#fff',
   },
-  header: {
-    fontSize: 24,
+  foodImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
+  },
+  foodName: {
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginVertical: 10,
   },
-  subheader: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 20,
-  },
-  price: {
+  foodPrice: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FF7043',
-    marginBottom: 10,
   },
   oldPrice: {
-    textDecorationLine: 'line-through',
     fontSize: 16,
+    textDecorationLine: 'line-through',
     color: '#888',
   },
   discount: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#FF7043',
-    marginBottom: 20,
+    marginVertical: 10,
   },
-  textInput: {
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  quantityButton: {
+    backgroundColor: '#FFEB3B',
+    padding: 10,
+    borderRadius: 5,
+  },
+  quantityText: {
+    fontSize: 18,
+    marginHorizontal: 15,
+  },
+  noteInput: {
     height: 50,
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 15,
+    fontSize: 16,
     marginBottom: 20,
-  },
-  popularDishesHeader: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  popularDishItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-  },
-  dishText: {
-    fontSize: 16,
-  },
-  dishPrice: {
-    fontSize: 16,
-    color: '#FF7043',
   },
   addButton: {
     backgroundColor: '#FF7043',
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-  },
-  addText: {
-    color: '#FFF',
-    fontWeight: 'bold',
-  },
-  paymentSummary: {
-    marginTop: 20,
-    padding: 15,
-    backgroundColor: '#F4F4F4',
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  summaryText: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  wallet: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  placeOrderButton: {
-    backgroundColor: '#FF7043',
-    paddingVertical: 15,
-    borderRadius: 10,
+    flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: 15,
+    borderRadius: 25,
+    justifyContent: 'center',
   },
-  placeOrderText: {
-    color: '#FFF',
-    fontSize: 18,
+  addButtonText: {
+    color: '#fff',
+    marginLeft: 10,
     fontWeight: 'bold',
+    fontSize: 18,
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+  },
+  footerButton: {
+    backgroundColor: '#FFEB3B',
+    padding: 15,
+    borderRadius: 50,
+    alignItems: 'center',
   },
 });
